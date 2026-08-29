@@ -1,0 +1,39 @@
+.ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  opacity: 0;
+  transform: translate3d(-200px, -200px, 0);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  /* Above the modal, so the ring stays continuous when a plate opens. */
+  z-index: 100;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition:
+    opacity 0.35s ease,
+    width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    margin 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.3s;
+}
+
+/* Swells over frames and links. Driven by a data attribute rather than
+   inline styles so the accent stays in one place: the --gold token. */
+.ring[data-over="true"] {
+  width: 76px;
+  height: 76px;
+  margin: -38px 0 0 -38px;
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+}
+
+/* Touch pointers never set the ring visible, but hide it outright for
+   anyone who has asked for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .ring {
+    display: none;
+  }
+}

@@ -1,0 +1,74 @@
+.section {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  display: grid;
+  align-content: center;
+  gap: 8vh;
+  padding: 16vh 6vw 8vh;
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(40px, 9vw, 150px);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  color: var(--paper);
+}
+
+.headingGold {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 80px;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--line);
+  padding-top: 38px;
+}
+
+.email {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.6vw, 40px);
+  color: var(--paper);
+  border-bottom: 1px solid rgba(242, 193, 78, 0.5);
+  padding-bottom: 6px;
+}
+
+.email:hover {
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 34px;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.links a {
+  color: var(--steel);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 4px;
+}
+
+.links a:hover {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.fine {
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #3f5578;
+}

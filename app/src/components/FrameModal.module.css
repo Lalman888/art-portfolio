@@ -1,0 +1,158 @@
+/* The dialog fills the viewport and carries the scrim itself, so clicking
+   anywhere on it closes — matching the design's "click anywhere to close". */
+.dialog {
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0;
+  padding: 6vh 6vw;
+  border: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(4, 6, 12, 0.93);
+  backdrop-filter: blur(14px);
+  color: var(--paper);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.dialog:not([open]) {
+  display: none;
+}
+
+.dialog[open] {
+  animation: fadeUp 0.4s ease both;
+}
+
+.dialog::backdrop {
+  background: transparent;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 34px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.art {
+  position: relative;
+  width: 100%;
+  height: 46vh;
+  min-height: 260px;
+  overflow: hidden;
+  box-shadow:
+    0 60px 120px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(242, 193, 78, 0.35);
+}
+
+.artTexture {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(118deg, rgba(255, 255, 255, 0.05) 0 2px, rgba(0, 0, 0, 0) 2px 6px);
+  mix-blend-mode: overlay;
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px 50px;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 56px);
+  line-height: 1;
+  color: var(--paper);
+}
+
+.byline {
+  margin-top: 12px;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.palette {
+  display: flex;
+  gap: 2px;
+}
+
+.swatch {
+  width: 54px;
+  height: 54px;
+}
+
+.detail {
+  display: grid;
+  gap: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+
+.summary {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 13px;
+  line-height: 1.95;
+  color: #b9cbe2;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 40px;
+  align-items: baseline;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.stack {
+  color: var(--steel);
+}
+
+.link {
+  color: var(--gold);
+  border-bottom: 1px solid rgba(242, 193, 78, 0.4);
+  padding-bottom: 3px;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #fff8e1;
+  border-bottom-color: currentColor;
+}
+
+.caseStudy {
+  color: var(--steel-dim);
+}
+
+/* Reads as the design's caption line, but is a real button so keyboard and
+   screen-reader users get an explicit way out besides Escape. */
+.closeHint {
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--steel-dim);
+  cursor: pointer;
+}
+
+.closeHint:hover {
+  color: var(--gold);
+}
+
+.closeHint:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 6px;
+}

@@ -1,0 +1,94 @@
+:root {
+  --gold: #f2c14e;
+  --ink: #05080f;
+  --paper: #f6ecc9;
+  --steel: #8fa8c9;
+  --steel-dim: #6f9dd6;
+  --line: rgba(207, 224, 242, 0.14);
+  --font-display: "Bodoni Moda", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ink);
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff8e1;
+}
+
+:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--gold);
+  color: #0b1533;
+}
+
+@keyframes riseIn {
+  from {
+    transform: translateY(115%) rotate(2deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes hint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(9px);
+    opacity: 1;
+  }
+}
+
+/* The page is motion-heavy by design. For anyone who has asked for less of
+   it, the entrance reveals and the looping scroll hint resolve immediately,
+   and the two paint canvases render as finished stills instead of
+   animating (see createPainter's `animate` option). The corridor still
+   responds to scrolling, since that motion is the viewer's own. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
