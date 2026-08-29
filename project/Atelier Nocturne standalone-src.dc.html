@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#05080f">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="800" fill="#05080f"/>
+<circle cx="880" cy="210" r="120" fill="#f2c14e" opacity="0.9"/>
+<circle cx="880" cy="210" r="185" fill="none" stroke="#ffe6a3" stroke-width="10" opacity="0.35"/>
+<path d="M0 560 C 200 470 320 640 520 560 S 900 470 1200 570 L1200 800 L0 800 Z" fill="#16336e"/>
+<path d="M0 650 C 240 580 400 720 640 650 S 980 580 1200 660 L1200 800 L0 800 Z" fill="#2a5cae" opacity="0.8"/>
+<g stroke="#6f9dd6" stroke-width="9" fill="none" opacity="0.55">
+<path d="M120 250 C 260 160 380 330 520 240"/>
+<path d="M150 360 C 300 270 420 440 560 350"/>
+</g>
+<rect x="430" y="300" width="200" height="260" fill="#0b1533" stroke="#f2c14e" stroke-width="8"/>
+</svg>
+</template>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  html { background: #05080f; }
+  body { margin: 0; background: #05080f; color: #f6ecc9; overflow-x: hidden; }
+  * { box-sizing: border-box; }
+  a { color: #f2c14e; text-decoration: none; }
+  a:hover { color: #fff8e1; }
+  ::selection { background: #f2c14e; color: #0b1533; }
+  @keyframes riseIn { from { transform: translateY(115%) rotate(2deg); opacity: 0 } to { transform: translateY(0) rotate(0); opacity: 1 } }
+  @keyframes fadeUp { from { transform: translateY(24px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+  @keyframes twinkle { 0%,100% { opacity: .25; transform: scale(.8) } 50% { opacity: 1; transform: scale(1.25) } }
+  @keyframes drift { 0% { transform: translate3d(0,0,0) } 50% { transform: translate3d(0,-14px,0) } 100% { transform: translate3d(0,0,0) } }
+  @keyframes hint { 0%,100% { transform: translateY(0); opacity: .55 } 50% { transform: translateY(9px); opacity: 1 } }
+</style>
+</helmet>
+
+<div id="an-root" style="position: relative; width: 100%; background: #05080f; font-family: 'IBM Plex Mono', ui-monospace, monospace;">
+
+  <canvas id="an-swirl" style="position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></canvas>
+  <div style="position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(120% 90% at 50% 40%, rgba(5,8,15,0) 30%, rgba(5,8,15,.72) 78%, #05080f 100%);"></div>
+
+  <div id="an-cursor" style="position: fixed; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; opacity: 0; transform: translate3d(-200px, -200px, 0); border: 1px solid var(--gold, #f2c14e); border-radius: 50%; z-index: 90; pointer-events: none; mix-blend-mode: screen; transition: opacity .35s ease, width .3s cubic-bezier(.2,.8,.2,1), height .3s cubic-bezier(.2,.8,.2,1), margin .3s cubic-bezier(.2,.8,.2,1), background .3s;"></div>
+
+  <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 60; display: flex; justify-content: space-between; align-items: flex-start; padding: 30px 34px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #cfe0f2; mix-blend-mode: difference;">
+    <div style="display: grid; gap: 6px;">
+      <span style="color: var(--gold, #f2c14e);">Atelier Nocturne</span>
+      <span style="opacity: .55; font-size: 10px;">Studio of light &amp; pigment</span>
+    </div>
+    <nav style="display: flex; gap: 26px; align-items: center;">
+      <a href="#an-gallery" style="color: #cfe0f2;">Gallery</a>
+      <a href="#an-chords" style="color: #cfe0f2;">Chords</a>
+      <a href="#an-paint" style="color: #cfe0f2;">Paint</a>
+      <a href="#an-end" style="color: #cfe0f2;">Contact</a>
+    </nav>
+  </header>
+
+  <section style="position: relative; z-index: 5; height: 100vh; min-height: 640px; display: grid; place-items: center; padding: 0 24px;">
+    <div style="text-align: center; max-width: 1100px;">
+      <div style="overflow: hidden; margin-bottom: -2vw;"><div style="animation: riseIn 1.15s .15s cubic-bezier(.16,1,.3,1) both; font-family: 'Bodoni Moda', serif; font-size: clamp(48px, 11.5vw, 176px); line-height: .92; letter-spacing: -.02em; color: #f6ecc9;">A&nbsp;ROOM</div></div>
+      <div style="overflow: hidden; margin-bottom: -2vw;"><div style="animation: riseIn 1.15s .3s cubic-bezier(.16,1,.3,1) both; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: clamp(48px, 11.5vw, 176px); line-height: .92; letter-spacing: -.02em; color: var(--gold, #f2c14e);">made&nbsp;of</div></div>
+      <div style="overflow: hidden;"><div style="animation: riseIn 1.15s .45s cubic-bezier(.16,1,.3,1) both; font-family: 'Bodoni Moda', serif; font-size: clamp(48px, 11.5vw, 176px); line-height: .92; letter-spacing: -.02em; color: #f6ecc9;">PAINT</div></div>
+      <p style="animation: fadeUp 1s .9s ease both; margin: 38px auto 0; max-width: 380px; font-size: 11px; line-height: 2; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Eight canvases, decoded to their colour. Walk in.</p>
+    </div>
+    <div style="position: absolute; bottom: 34px; left: 50%; margin-left: -60px; width: 120px; text-align: center; font-size: 10px; letter-spacing: .3em; color: #6f9dd6; animation: hint 2.4s ease-in-out infinite;">SCROLL</div>
+  </section>
+
+  <section id="an-gallery" style="position: relative; z-index: 5; height: 620vh;">
+    <div style="position: sticky; top: 0; height: 100vh; overflow: hidden; perspective: 1150px; perspective-origin: 50% 48%;">
+      <div id="an-world" style="position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform;">
+
+        <div data-plane style="position: absolute; left: 50%; top: 50%; width: 2600px; height: 14000px; margin: -7000px 0 0 -1300px; transform: translateY(430px) rotateX(90deg); background: repeating-linear-gradient(to bottom, rgba(111,157,214,.16) 0 1px, rgba(0,0,0,0) 1px 140px), repeating-linear-gradient(to right, rgba(111,157,214,.09) 0 1px, rgba(0,0,0,0) 1px 200px), linear-gradient(to bottom, #060b18, #0a1230);"></div>
+        <div data-plane style="position: absolute; left: 50%; top: 50%; width: 2600px; height: 14000px; margin: -7000px 0 0 -1300px; transform: translateY(-450px) rotateX(90deg); background: repeating-linear-gradient(to bottom, rgba(242,193,78,.07) 0 1px, rgba(0,0,0,0) 1px 300px), linear-gradient(to bottom, #05080f, #0b1533);"></div>
+
+        <figure data-frame data-index="0" data-z="-1200" data-side="l" onClick="{{ openFrame }}" style="position: absolute; left: 50%; top: 50%; width: 360px; height: 470px; margin: -235px 0 0 -180px; transform-style: preserve-3d; cursor: pointer;">
+          <div style="position: relative; width: 100%; height: 100%; padding: 22px 22px 74px; background: linear-gradient(#171310, #0d0b09); box-shadow: 0 60px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(242,193,78,.28); transition: box-shadow .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.035); box-shadow: 0 70px 120px rgba(0,0,0,.7), 0 0 0 1px rgba(242,193,78,.75), 0 0 70px rgba(242,193,78,.16);">
+            <div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(55% 38% at 22% 28%, #f2c14e 0%, rgba(242,193,78,0) 58%), radial-gradient(38% 26% at 70% 20%, #ffe6a3 0%, rgba(255,230,163,0) 62%), radial-gradient(95% 72% at 48% 62%, #2a5cae 0%, rgba(42,92,174,0) 72%), linear-gradient(#0b1533, #16336e 58%, #0d2420);">
+              <div style="position: absolute; inset: 0; background: repeating-linear-gradient(118deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 6px); mix-blend-mode: overlay;"></div>
+            </div>
+            <div style="position: absolute; left: 22px; right: 22px; bottom: 24px; display: flex; justify-content: space-between; align-items: baseline; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #8fa8c9;">
+              <span style="font-family: 'Bodoni Moda', serif; font-size: 15px; letter-spacing: .02em; text-transform: none; color: #f6ecc9;">The Starry Night</span>
+              <span>1889</span>
+            </div>
+          </div>
+        </figure>
+
+        <figure data-frame data-index="1" data-z="-2450" data-side="r" onClick="{{ openFrame }}" style="position: absolute; left: 50%; top: 50%; width: 360px; height: 470px; margin: -235px 0 0 -180px; transform-style: preserve-3d; cursor: pointer;">
+          <div style="position: relative; width: 100%; height: 100%; padding: 22px 22px 74px; background: linear-gradient(#171310, #0d0b09); box-shadow: 0 60px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(242,193,78,.28); transition: box-shadow .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.035); box-shadow: 0 70px 120px rgba(0,0,0,.7), 0 0 0 1px rgba(242,193,78,.75), 0 0 70px rgba(242,193,78,.16);">
+            <div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(70% 50% at 30% 72%, #4a7fa5 0%, rgba(74,127,165,0) 66%), radial-gradient(40% 28% at 76% 28%, #e9dcc3 0%, rgba(233,220,195,0) 70%), linear-gradient(#dfe6e2, #143a5c);">
+              <div style="position: absolute; inset: 0; background: repeating-linear-gradient(118deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 6px); mix-blend-mode: overlay;"></div>
+            </div>
+            <div style="position: absolute; left: 22px; right: 22px; bottom: 24px; display: flex; justify-content: space-between; align-items: baseline; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #8fa8c9;">
+              <span style="font-family: 'Bodoni Moda', serif; font-size: 15px; letter-spacing: .02em; text-transform: none; color: #f6ecc9;">The Great Wave</span>
+              <span>1831</span>
+            </div>
+          </div>
+        </figure>
+
+        <figure data-frame data-index="2" data-z="-3700" data-side="l" onClick="{{ openFrame }}" style="position: absolute; left: 50%; top: 50%; width: 360px; height: 470px; margin: -235px 0 0 -180px; transform-style: preserve-3d; cursor: pointer;">
+          <div style="position: relative; width: 100%; height: 100%; padding: 22px 22px 74px; background: linear-gradient(#171310, #0d0b09); box-shadow: 0 60px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(242,193,78,.28); transition: box-shadow .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.035); box-shadow: 0 70px 120px rgba(0,0,0,.7), 0 0 0 1px rgba(242,193,78,.75), 0 0 70px rgba(242,193,78,.16);">
+            <div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(48% 38% at 48% 36%, #e7c9a9 0%, rgba(231,201,169,0) 62%), radial-gradient(26% 22% at 62% 56%, #c9a227 0%, rgba(201,162,39,0) 72%), linear-gradient(#12100c, #1f3f4a);">
+              <div style="position: absolute; inset: 0; background: repeating-linear-gradient(118deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 6px); mix-blend-mode: overlay;"></div>
+            </div>
+            <div style="position: absolute; left: 22px; right: 22px; bottom: 24px; display: flex; justify-content: space-between; align-items: baseline; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #8fa8c9;">
+              <span style="font-family: 'Bodoni Moda', serif; font-size: 15px; letter-spacing: .02em; text-transform: none; color: #f6ecc9;">Girl with a Pearl Earring</span>
+              <span>1665</span>
+            </div>
+          </div>
+        </figure>
+
+        <figure data-frame data-index="3" data-z="-4950" data-side="r" onClick="{{ openFrame }}" style="position: absolute; left: 50%; top: 50%; width: 360px; height: 470px; margin: -235px 0 0 -180px; transform-style: preserve-3d; cursor: pointer;">
+          <div style="position: relative; width: 100%; height: 100%; padding: 22px 22px 74px; background: linear-gradient(#171310, #0d0b09); box-shadow: 0 60px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(242,193,78,.28); transition: box-shadow .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.035); box-shadow: 0 70px 120px rgba(0,0,0,.7), 0 0 0 1px rgba(242,193,78,.75), 0 0 70px rgba(242,193,78,.16);">
+            <div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(45% 34% at 34% 66%, #d8c7d9 0%, rgba(216,199,217,0) 66%), radial-gradient(40% 28% at 70% 34%, #a8c4a2 0%, rgba(168,196,162,0) 70%), linear-gradient(#1c3f3a, #4f7d63);">
+              <div style="position: absolute; inset: 0; background: repeating-linear-gradient(118deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 6px); mix-blend-mode: overlay;"></div>
+            </div>
+            <div style="position: absolute; left: 22px; right: 22px; bottom: 24px; display: flex; justify-content: space-between; align-items: baseline; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #8fa8c9;">
+              <span style="font-family: 'Bodoni Moda', serif; font-size: 15px; letter-spacing: .02em; text-transform: none; color: #f6ecc9;">Water Lilies</span>
+              <span>1906</span>
+            </div>
+          </div>
+        </figure>
+
+        <figure data-frame data-index="4" data-z="-6200" data-side="l" onClick="{{ openFrame }}" style="position: absolute; left: 50%; top: 50%; width: 360px; height: 470px; margin: -235px 0 0 -180px; transform-style: preserve-3d; cursor: pointer;">
+          <div style="position: relative; width: 100%; height: 100%; padding: 22px 22px 74px; background: linear-gradient(#171310, #0d0b09); box-shadow: 0 60px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(242,193,78,.28); transition: box-shadow .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.035); box-shadow: 0 70px 120px rgba(0,0,0,.7), 0 0 0 1px rgba(242,193,78,.75), 0 0 70px rgba(242,193,78,.16);">
+            <div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(52% 42% at 50% 44%, #f0d17a 0%, rgba(240,209,122,0) 62%), radial-gradient(32% 28% at 28% 72%, #6b7a3a 0%, rgba(107,122,58,0) 72%), linear-gradient(#1a1408, #c9971e);">
+              <div style="position: absolute; inset: 0; background: repeating-linear-gradient(118deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 6px); mix-blend-mode: overlay;"></div>
+            </div>
+            <div style="position: absolute; left: 22px; right: 22px; bottom: 24px; display: flex; justify-content: space-between; align-items: baseline; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #8fa8c9;">
+              <span style="font-family: 'Bodoni Moda', serif; font-size: 15px; letter-spacing: .02em; text-transform: none; color: #f6ecc9;">The Kiss</span>
+              <span>1908</span>
+            </div>
+          </div>
+        </figure>
+
+        <figure data-frame data-index="5" data-z="-7450" data-side="r" onClick="{{ openFrame }}" style="position: absolute; left: 50%; top: 50%; width: 360px; height: 470px; margin: -235px 0 0 -180px; transform-style: preserve-3d; cursor: pointer;">
+          <div style="position: relative; width: 100%; height: 100%; padding: 22px 22px 74px; background: linear-gradient(#171310, #0d0b09); box-shadow: 0 60px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(242,193,78,.28); transition: box-shadow .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.035); box-shadow: 0 70px 120px rgba(0,0,0,.7), 0 0 0 1px rgba(242,193,78,.75), 0 0 70px rgba(242,193,78,.16);">
+            <div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(58% 40% at 50% 30%, #e6e2d6 0%, rgba(230,226,214,0) 66%), linear-gradient(#cfd6d8, #8d9aa3 46%, #2b3238);">
+              <div style="position: absolute; inset: 0; background: repeating-linear-gradient(118deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 6px); mix-blend-mode: overlay;"></div>
+            </div>
+            <div style="position: absolute; left: 22px; right: 22px; bottom: 24px; display: flex; justify-content: space-between; align-items: baseline; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #8fa8c9;">
+              <span style="font-family: 'Bodoni Moda', serif; font-size: 15px; letter-spacing: .02em; text-transform: none; color: #f6ecc9;">Wanderer above the Sea of Fog</span>
+              <span>1818</span>
+            </div>
+          </div>
+        </figure>
+
+        <figure data-frame data-index="6" data-z="-8700" data-side="l" onClick="{{ openFrame }}" style="position: absolute; left: 50%; top: 50%; width: 360px; height: 470px; margin: -235px 0 0 -180px; transform-style: preserve-3d; cursor: pointer;">
+          <div style="position: relative; width: 100%; height: 100%; padding: 22px 22px 74px; background: linear-gradient(#171310, #0d0b09); box-shadow: 0 60px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(242,193,78,.28); transition: box-shadow .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.035); box-shadow: 0 70px 120px rgba(0,0,0,.7), 0 0 0 1px rgba(242,193,78,.75), 0 0 70px rgba(242,193,78,.16);">
+            <div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(48% 38% at 44% 46%, #e8d7c3 0%, rgba(232,215,195,0) 62%), radial-gradient(28% 24% at 76% 66%, #b8452f 0%, rgba(184,69,47,0) 72%), linear-gradient(#a9bfae, #6f8f7a);">
+              <div style="position: absolute; inset: 0; background: repeating-linear-gradient(118deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 6px); mix-blend-mode: overlay;"></div>
+            </div>
+            <div style="position: absolute; left: 22px; right: 22px; bottom: 24px; display: flex; justify-content: space-between; align-items: baseline; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #8fa8c9;">
+              <span style="font-family: 'Bodoni Moda', serif; font-size: 15px; letter-spacing: .02em; text-transform: none; color: #f6ecc9;">The Birth of Venus</span>
+              <span>1486</span>
+            </div>
+          </div>
+        </figure>
+
+        <figure data-frame data-index="7" data-z="-9950" data-side="r" onClick="{{ openFrame }}" style="position: absolute; left: 50%; top: 50%; width: 360px; height: 470px; margin: -235px 0 0 -180px; transform-style: preserve-3d; cursor: pointer;">
+          <div style="position: relative; width: 100%; height: 100%; padding: 22px 22px 74px; background: linear-gradient(#171310, #0d0b09); box-shadow: 0 60px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(242,193,78,.28); transition: box-shadow .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.035); box-shadow: 0 70px 120px rgba(0,0,0,.7), 0 0 0 1px rgba(242,193,78,.75), 0 0 70px rgba(242,193,78,.16);">
+            <div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(32% 24% at 60% 34%, #e4844a 0%, rgba(228,132,74,0) 70%), radial-gradient(72% 52% at 40% 72%, #6a7f95 0%, rgba(106,127,149,0) 72%), linear-gradient(#b8c4cf, #2f3c4a);">
+              <div style="position: absolute; inset: 0; background: repeating-linear-gradient(118deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 6px); mix-blend-mode: overlay;"></div>
+            </div>
+            <div style="position: absolute; left: 22px; right: 22px; bottom: 24px; display: flex; justify-content: space-between; align-items: baseline; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #8fa8c9;">
+              <span style="font-family: 'Bodoni Moda', serif; font-size: 15px; letter-spacing: .02em; text-transform: none; color: #f6ecc9;">Impression, Sunrise</span>
+              <span>1872</span>
+            </div>
+          </div>
+        </figure>
+
+      </div>
+
+      <div style="position: absolute; left: 34px; bottom: 32px; z-index: 20; display: grid; gap: 8px; pointer-events: none;">
+        <div style="font-size: 10px; letter-spacing: .3em; color: #6f9dd6;">HALL 01 — <span id="an-count">01</span> / 08</div>
+        <div id="an-now" style="font-family: 'Bodoni Moda', serif; font-size: clamp(22px, 3vw, 38px); line-height: 1.05; color: #f6ecc9; max-width: 9em;">The Starry Night</div>
+        <div id="an-artist" style="font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #8fa8c9;">Vincent van Gogh</div>
+      </div>
+      <div style="position: absolute; right: 34px; bottom: 32px; z-index: 20; width: 160px; text-align: right; font-size: 10px; letter-spacing: .22em; color: #6f9dd6; pointer-events: none;">CLICK A CANVAS</div>
+      <div style="position: absolute; right: 34px; top: 50%; z-index: 20; width: 1px; height: 220px; margin-top: -110px; background: rgba(111,157,214,.2); pointer-events: none;">
+        <div id="an-bar" style="width: 1px; background: var(--gold, #f2c14e); height: 0;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="an-chords" style="position: relative; z-index: 5; padding: 18vh 6vw 14vh; background: linear-gradient(#05080f, #080d1e 40%, #05080f);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 8vh;">
+      <h2 style="margin: 0; font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: clamp(34px, 6vw, 92px); line-height: .95; letter-spacing: -.02em; color: #f6ecc9;">Colour<br><span style="font-style: italic; color: var(--gold, #f2c14e);">chords</span></h2>
+      <p style="margin: 0; max-width: 320px; font-size: 11px; line-height: 2.1; letter-spacing: .16em; text-transform: uppercase; color: #8fa8c9;">Nine masterworks, reduced to five pigments each. Hover a band.</p>
+    </div>
+
+    <div style="display: grid; gap: 0; perspective: 1400px;">
+
+      <div data-tilt style="display: grid; grid-template-columns: 56px minmax(180px, 1.3fr) minmax(0, 2fr); gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid rgba(207,224,242,.14); transform-style: preserve-3d;">
+        <span style="font-size: 10px; letter-spacing: .2em; color: #6f9dd6;">01</span>
+        <div><div style="font-family: 'Bodoni Moda', serif; font-size: clamp(19px, 2.1vw, 30px); color: #f6ecc9;">The Starry Night</div><div style="margin-top: 6px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Van Gogh · 1889</div></div>
+        <div style="display: flex; height: 62px;">
+          <div style="flex: 1; background: #0b1533; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#0B1533</div>
+          <div style="flex: 1; background: #16336e; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#16336E</div>
+          <div style="flex: 1; background: #2a5cae; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#2A5CAE</div>
+          <div style="flex: 1; background: #6f9dd6; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#6F9DD6</div>
+          <div style="flex: 1; background: #f2c14e; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#F2C14E</div>
+        </div>
+      </div>
+
+      <div data-tilt style="display: grid; grid-template-columns: 56px minmax(180px, 1.3fr) minmax(0, 2fr); gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid rgba(207,224,242,.14); transform-style: preserve-3d;">
+        <span style="font-size: 10px; letter-spacing: .2em; color: #6f9dd6;">02</span>
+        <div><div style="font-family: 'Bodoni Moda', serif; font-size: clamp(19px, 2.1vw, 30px); color: #f6ecc9;">The Great Wave off Kanagawa</div><div style="margin-top: 6px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Hokusai · 1831</div></div>
+        <div style="display: flex; height: 62px;">
+          <div style="flex: 1; background: #143a5c; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#143A5C</div>
+          <div style="flex: 1; background: #4a7fa5; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#4A7FA5</div>
+          <div style="flex: 1; background: #dfe6e2; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#DFE6E2</div>
+          <div style="flex: 1; background: #e9dcc3; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#E9DCC3</div>
+          <div style="flex: 1; background: #2b2b2b; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#2B2B2B</div>
+        </div>
+      </div>
+
+      <div data-tilt style="display: grid; grid-template-columns: 56px minmax(180px, 1.3fr) minmax(0, 2fr); gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid rgba(207,224,242,.14); transform-style: preserve-3d;">
+        <span style="font-size: 10px; letter-spacing: .2em; color: #6f9dd6;">03</span>
+        <div><div style="font-family: 'Bodoni Moda', serif; font-size: clamp(19px, 2.1vw, 30px); color: #f6ecc9;">Girl with a Pearl Earring</div><div style="margin-top: 6px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Vermeer · 1665</div></div>
+        <div style="display: flex; height: 62px;">
+          <div style="flex: 1; background: #12100c; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#12100C</div>
+          <div style="flex: 1; background: #1f3f4a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#1F3F4A</div>
+          <div style="flex: 1; background: #c9a227; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#C9A227</div>
+          <div style="flex: 1; background: #e7c9a9; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#E7C9A9</div>
+          <div style="flex: 1; background: #7a1f1f; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#7A1F1F</div>
+        </div>
+      </div>
+
+      <div data-tilt style="display: grid; grid-template-columns: 56px minmax(180px, 1.3fr) minmax(0, 2fr); gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid rgba(207,224,242,.14); transform-style: preserve-3d;">
+        <span style="font-size: 10px; letter-spacing: .2em; color: #6f9dd6;">04</span>
+        <div><div style="font-family: 'Bodoni Moda', serif; font-size: clamp(19px, 2.1vw, 30px); color: #f6ecc9;">Water Lilies</div><div style="margin-top: 6px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Monet · 1906</div></div>
+        <div style="display: flex; height: 62px;">
+          <div style="flex: 1; background: #1c3f3a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#1C3F3A</div>
+          <div style="flex: 1; background: #4f7d63; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#4F7D63</div>
+          <div style="flex: 1; background: #a8c4a2; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#A8C4A2</div>
+          <div style="flex: 1; background: #d8c7d9; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#D8C7D9</div>
+          <div style="flex: 1; background: #7b8fb5; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#7B8FB5</div>
+        </div>
+      </div>
+
+      <div data-tilt style="display: grid; grid-template-columns: 56px minmax(180px, 1.3fr) minmax(0, 2fr); gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid rgba(207,224,242,.14); transform-style: preserve-3d;">
+        <span style="font-size: 10px; letter-spacing: .2em; color: #6f9dd6;">05</span>
+        <div><div style="font-family: 'Bodoni Moda', serif; font-size: clamp(19px, 2.1vw, 30px); color: #f6ecc9;">The Kiss</div><div style="margin-top: 6px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Klimt · 1908</div></div>
+        <div style="display: flex; height: 62px;">
+          <div style="flex: 1; background: #1a1408; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#1A1408</div>
+          <div style="flex: 1; background: #8a6b1f; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#8A6B1F</div>
+          <div style="flex: 1; background: #c9971e; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#C9971E</div>
+          <div style="flex: 1; background: #f0d17a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#F0D17A</div>
+          <div style="flex: 1; background: #6b7a3a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#6B7A3A</div>
+        </div>
+      </div>
+
+      <div data-tilt style="display: grid; grid-template-columns: 56px minmax(180px, 1.3fr) minmax(0, 2fr); gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid rgba(207,224,242,.14); transform-style: preserve-3d;">
+        <span style="font-size: 10px; letter-spacing: .2em; color: #6f9dd6;">06</span>
+        <div><div style="font-family: 'Bodoni Moda', serif; font-size: clamp(19px, 2.1vw, 30px); color: #f6ecc9;">Wanderer above the Sea of Fog</div><div style="margin-top: 6px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Friedrich · 1818</div></div>
+        <div style="display: flex; height: 62px;">
+          <div style="flex: 1; background: #e6e2d6; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#E6E2D6</div>
+          <div style="flex: 1; background: #cfd6d8; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#CFD6D8</div>
+          <div style="flex: 1; background: #8d9aa3; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#8D9AA3</div>
+          <div style="flex: 1; background: #4a5560; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#4A5560</div>
+          <div style="flex: 1; background: #2b3238; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#2B3238</div>
+        </div>
+      </div>
+
+      <div data-tilt style="display: grid; grid-template-columns: 56px minmax(180px, 1.3fr) minmax(0, 2fr); gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid rgba(207,224,242,.14); transform-style: preserve-3d;">
+        <span style="font-size: 10px; letter-spacing: .2em; color: #6f9dd6;">07</span>
+        <div><div style="font-family: 'Bodoni Moda', serif; font-size: clamp(19px, 2.1vw, 30px); color: #f6ecc9;">The Birth of Venus</div><div style="margin-top: 6px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Botticelli · 1486</div></div>
+        <div style="display: flex; height: 62px;">
+          <div style="flex: 1; background: #6f8f7a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#6F8F7A</div>
+          <div style="flex: 1; background: #a9bfae; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#A9BFAE</div>
+          <div style="flex: 1; background: #d9c9a3; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#D9C9A3</div>
+          <div style="flex: 1; background: #e8d7c3; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#E8D7C3</div>
+          <div style="flex: 1; background: #b8452f; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#B8452F</div>
+        </div>
+      </div>
+
+      <div data-tilt style="display: grid; grid-template-columns: 56px minmax(180px, 1.3fr) minmax(0, 2fr); gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid rgba(207,224,242,.14); transform-style: preserve-3d;">
+        <span style="font-size: 10px; letter-spacing: .2em; color: #6f9dd6;">08</span>
+        <div><div style="font-family: 'Bodoni Moda', serif; font-size: clamp(19px, 2.1vw, 30px); color: #f6ecc9;">Impression, Sunrise</div><div style="margin-top: 6px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Monet · 1872</div></div>
+        <div style="display: flex; height: 62px;">
+          <div style="flex: 1; background: #2f3c4a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#2F3C4A</div>
+          <div style="flex: 1; background: #6a7f95; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#6A7F95</div>
+          <div style="flex: 1; background: #b8c4cf; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#B8C4CF</div>
+          <div style="flex: 1; background: #d9b26a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#D9B26A</div>
+          <div style="flex: 1; background: #e4844a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#E4844A</div>
+        </div>
+      </div>
+
+      <div data-tilt style="display: grid; grid-template-columns: 56px minmax(180px, 1.3fr) minmax(0, 2fr); gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid rgba(207,224,242,.14); border-bottom: 1px solid rgba(207,224,242,.14); transform-style: preserve-3d;">
+        <span style="font-size: 10px; letter-spacing: .2em; color: #6f9dd6;">09</span>
+        <div><div style="font-family: 'Bodoni Moda', serif; font-size: clamp(19px, 2.1vw, 30px); color: #f6ecc9;">The Scream</div><div style="margin-top: 6px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8fa8c9;">Munch · 1893</div></div>
+        <div style="display: flex; height: 62px;">
+          <div style="flex: 1; background: #2a3d5c; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#2A3D5C</div>
+          <div style="flex: 1; background: #8b3a2f; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(255,255,255,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(255,255,255,.8);">#8B3A2F</div>
+          <div style="flex: 1; background: #c4552e; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#C4552E</div>
+          <div style="flex: 1; background: #e0a13a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#E0A13A</div>
+          <div style="flex: 1; background: #e8cf9a; display: grid; place-items: end center; padding-bottom: 8px; font-size: 8px; letter-spacing: .1em; color: rgba(0,0,0,0); transition: flex .45s cubic-bezier(.2,.8,.2,1), color .3s;" style-hover="flex: 2.2; color: rgba(0,0,0,.65);">#E8CF9A</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="an-paint" style="position: relative; z-index: 5; height: 240vh;">
+    <div style="position: sticky; top: 0; height: 100vh; overflow: hidden;">
+      <canvas id="an-brush" style="position: absolute; inset: 0; width: 100%; height: 100%;"></canvas>
+      <div style="position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none;">
+        <div style="text-align: center;">
+          <div style="font-family: 'Bodoni Moda', serif; font-style: italic; font-size: clamp(38px, 8vw, 128px); line-height: 1; color: #f6ecc9; mix-blend-mode: difference;">move your hand</div>
+          <div style="margin-top: 26px; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: #8fa8c9;">the pigment follows · press to flood</div>
+        </div>
+      </div>
+      <div style="position: absolute; left: 34px; bottom: 32px; font-size: 10px; letter-spacing: .3em; color: #6f9dd6;">STUDIO 02 — IMPASTO FIELD</div>
+    </div>
+  </section>
+
+  <section id="an-end" style="position: relative; z-index: 5; min-height: 100vh; display: grid; align-content: center; gap: 8vh; padding: 16vh 6vw 8vh;">
+    <h2 style="margin: 0; font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: clamp(40px, 9vw, 150px); line-height: .92; letter-spacing: -.025em; color: #f6ecc9;">Let us make<br><span style="font-style: italic; color: var(--gold, #f2c14e);">something</span> timeless</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 40px 80px; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(207,224,242,.14); padding-top: 38px;">
+      <a href="#an-end" style="font-family: 'Bodoni Moda', serif; font-size: clamp(20px, 2.6vw, 40px); color: #f6ecc9; border-bottom: 1px solid rgba(242,193,78,.5); padding-bottom: 6px;" style-hover="color: var(--gold, #f2c14e); border-bottom: 1px solid var(--gold, #f2c14e);">studio@ateliernocturne.art</a>
+      <div style="display: flex; gap: 34px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #8fa8c9;">
+        <span>Arles</span><span>Kyoto</span><span>Delft</span>
+      </div>
+    </div>
+    <div style="font-size: 9px; letter-spacing: .24em; text-transform: uppercase; color: #3f5578;">Palettes derived from public-domain works · prototype</div>
+  </section>
+
+  <sc-if value="{{ isOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeFrame }}" style="position: fixed; inset: 0; z-index: 95; background: rgba(4,6,12,.93); backdrop-filter: blur(14px); display: grid; place-items: center; padding: 6vh 6vw; cursor: pointer; animation: fadeUp .4s ease both;">
+      <div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 34px; max-width: 1000px; width: 100%;">
+        <div style="position: relative; width: 100%; height: 46vh; min-height: 260px; overflow: hidden; box-shadow: 0 60px 120px rgba(0,0,0,.7), 0 0 0 1px rgba(242,193,78,.35); background: {{ openArt }};">
+          <div style="position: absolute; inset: 0; background: repeating-linear-gradient(118deg, rgba(255,255,255,.05) 0 2px, rgba(0,0,0,0) 2px 6px); mix-blend-mode: overlay;"></div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 26px 50px; justify-content: space-between; align-items: flex-end;">
+          <div>
+            <div style="font-family: 'Bodoni Moda', serif; font-size: clamp(26px, 4vw, 56px); line-height: 1; color: #f6ecc9;">{{ openTitle }}</div>
+            <div style="margin-top: 12px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #8fa8c9;">{{ openArtist }} · {{ openYear }} · {{ openMedium }}</div>
+          </div>
+          <div style="display: flex; gap: 2px;">
+            <sc-for list="{{ openPalette }}" as="sw" hint-placeholder-count="5">
+              <div style="width: 54px; height: 54px; background: {{ sw.c }};"></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: #6f9dd6;">Click anywhere to close</div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#f2c14e&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#f2c14e&quot;,&quot;#e4844a&quot;,&quot;#c9a227&quot;,&quot;#6f9dd6&quot;],&quot;section&quot;:&quot;Atmosphere&quot;},&quot;swirlDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:260,&quot;min&quot;:60,&quot;max&quot;:520,&quot;step&quot;:20,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Atmosphere&quot;},&quot;floorGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Gallery&quot;}}">
+const WORKS = [
+  { t: "The Starry Night", a: "Vincent van Gogh", y: 1889, m: "Oil on canvas",
+    bg: "radial-gradient(45% 34% at 22% 30%, #f2c14e 0%, rgba(242,193,78,0) 58%), radial-gradient(30% 24% at 70% 22%, #ffe6a3 0%, rgba(255,230,163,0) 62%), radial-gradient(85% 70% at 48% 64%, #2a5cae 0%, rgba(42,92,174,0) 72%), linear-gradient(#0b1533, #16336e 58%, #0d2420)",
+    p: ["#0b1533", "#16336e", "#2a5cae", "#6f9dd6", "#f2c14e"] },
+  { t: "The Great Wave off Kanagawa", a: "Katsushika Hokusai", y: 1831, m: "Woodblock print",
+    bg: "radial-gradient(60% 48% at 30% 72%, #4a7fa5 0%, rgba(74,127,165,0) 66%), radial-gradient(34% 26% at 76% 28%, #e9dcc3 0%, rgba(233,220,195,0) 70%), linear-gradient(#dfe6e2, #143a5c)",
+    p: ["#143a5c", "#4a7fa5", "#dfe6e2", "#e9dcc3", "#2b2b2b"] },
+  { t: "Girl with a Pearl Earring", a: "Johannes Vermeer", y: 1665, m: "Oil on canvas",
+    bg: "radial-gradient(38% 34% at 48% 38%, #e7c9a9 0%, rgba(231,201,169,0) 62%), radial-gradient(20% 20% at 62% 58%, #c9a227 0%, rgba(201,162,39,0) 72%), linear-gradient(#12100c, #1f3f4a)",
+    p: ["#12100c", "#1f3f4a", "#c9a227", "#e7c9a9", "#7a1f1f"] },
+  { t: "Water Lilies", a: "Claude Monet", y: 1906, m: "Oil on canvas",
+    bg: "radial-gradient(40% 34% at 34% 68%, #d8c7d9 0%, rgba(216,199,217,0) 66%), radial-gradient(34% 26% at 70% 34%, #a8c4a2 0%, rgba(168,196,162,0) 70%), linear-gradient(#1c3f3a, #4f7d63)",
+    p: ["#1c3f3a", "#4f7d63", "#a8c4a2", "#d8c7d9", "#7b8fb5"] },
+  { t: "The Kiss", a: "Gustav Klimt", y: 1908, m: "Oil and gold leaf",
+    bg: "radial-gradient(42% 40% at 50% 46%, #f0d17a 0%, rgba(240,209,122,0) 62%), radial-gradient(26% 26% at 28% 74%, #6b7a3a 0%, rgba(107,122,58,0) 72%), linear-gradient(#1a1408, #c9971e)",
+    p: ["#1a1408", "#8a6b1f", "#c9971e", "#f0d17a", "#6b7a3a"] },
+  { t: "Wanderer above the Sea of Fog", a: "Caspar David Friedrich", y: 1818, m: "Oil on canvas",
+    bg: "radial-gradient(48% 38% at 50% 30%, #e6e2d6 0%, rgba(230,226,214,0) 66%), linear-gradient(#cfd6d8, #8d9aa3 46%, #2b3238)",
+    p: ["#e6e2d6", "#cfd6d8", "#8d9aa3", "#4a5560", "#2b3238"] },
+  { t: "The Birth of Venus", a: "Sandro Botticelli", y: 1486, m: "Tempera on canvas",
+    bg: "radial-gradient(38% 34% at 44% 48%, #e8d7c3 0%, rgba(232,215,195,0) 62%), radial-gradient(22% 22% at 76% 66%, #b8452f 0%, rgba(184,69,47,0) 72%), linear-gradient(#a9bfae, #6f8f7a)",
+    p: ["#6f8f7a", "#a9bfae", "#d9c9a3", "#e8d7c3", "#b8452f"] },
+  { t: "Impression, Sunrise", a: "Claude Monet", y: 1872, m: "Oil on canvas",
+    bg: "radial-gradient(24% 22% at 60% 36%, #e4844a 0%, rgba(228,132,74,0) 70%), radial-gradient(62% 48% at 40% 72%, #6a7f95 0%, rgba(106,127,149,0) 72%), linear-gradient(#b8c4cf, #2f3c4a)",
+    p: ["#2f3c4a", "#6a7f95", "#b8c4cf", "#d9b26a", "#e4844a"] }
+];
+
+const SKY = ["#16336e", "#2a5cae", "#4a7fc1", "#6f9dd6", "#cfe0f2", "#f2c14e", "#ffe6a3", "#0d2420"];
+
+function Painter(canvas, opts) {
+  const ctx = canvas.getContext("2d");
+  let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const parts = [];
+  const cfg = Object.assign({ count: 180, follow: false, speed: 1.1, fade: 0.016 }, opts);
+  let t = 0, mx = -9999, my = -9999, alive = true, raf = 0;
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    w = Math.max(1, r.width); h = Math.max(1, r.height);
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = "#05080f"; ctx.fillRect(0, 0, w, h);
+  }
+  function spawn(x, y) {
+    return { x: x, y: y, px: x, py: y, life: 60 + Math.random() * 200,
+      c: SKY[(Math.random() * SKY.length) | 0], wd: 1.1 + Math.random() * 3.2 };
+  }
+  function seed(n) { for (let i = 0; i < n; i++) parts.push(spawn(Math.random() * w, Math.random() * h)); }
+  function field(x, y) {
+    return Math.sin(x * 0.0024 + t) * 1.7 + Math.cos(y * 0.0028 - t * 0.7) * 1.7 + Math.sin((x + y) * 0.0011 + t * 0.3) * 2.1;
+  }
+  function frame() {
+    if (!alive) return;
+    t += 0.0022;
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "rgba(5,8,15," + cfg.fade + ")";
+    ctx.fillRect(0, 0, w, h);
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < parts.length; i++) {
+      const p = parts[i];
+      let a = field(p.x, p.y);
+      if (cfg.follow && mx > -9000) {
+        const dx = mx - p.x, dy = my - p.y, d = Math.hypot(dx, dy);
+        if (d < 320) a = Math.atan2(dy, dx) + Math.sin(d * 0.03 + t * 8) * 1.1;
+      }
+      p.px = p.x; p.py = p.y;
+      p.x += Math.cos(a) * cfg.speed * 2.2;
+      p.y += Math.sin(a) * cfg.speed * 2.2;
+      p.life -= 1;
+      ctx.strokeStyle = p.c;
+      ctx.globalAlpha = 0.5;
+      ctx.lineWidth = p.wd;
+      ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
+      if (p.life < 0 || p.x < -40 || p.x > w + 40 || p.y < -40 || p.y > h + 40) {
+        parts[i] = cfg.follow && mx > -9000
+          ? spawn(mx + (Math.random() - 0.5) * 220, my + (Math.random() - 0.5) * 220)
+          : spawn(Math.random() * w, Math.random() * h);
+      }
+    }
+    ctx.globalAlpha = 1;
+    raf = requestAnimationFrame(frame);
+  }
+  resize(); seed(cfg.count); frame();
+  return {
+    resize: resize,
+    point: function (x, y) { mx = x; my = y; },
+    burst: function (x, y, n) { for (let i = 0; i < n; i++) parts.push(spawn(x + (Math.random() - 0.5) * 60, y + (Math.random() - 0.5) * 60)); },
+    stop: function () { alive = false; cancelAnimationFrame(raf); }
+  };
+}
+
+class Component extends DCLogic {
+  state = { open: -1 };
+
+  componentDidMount() {
+    const root = document.getElementById("an-root");
+    if (!root) return;
+    document.documentElement.style.setProperty("--gold", this.props.accent || "#f2c14e");
+
+    const density = Math.round(this.props.swirlDensity || 260);
+    this.sky = Painter(document.getElementById("an-swirl"), { count: density, fade: 0.014, speed: 1.0 });
+    this.brush = Painter(document.getElementById("an-brush"), { count: Math.round(density * 0.55), follow: true, fade: 0.03, speed: 1.35 });
+
+    if (this.props.floorGrid === false) {
+      root.querySelectorAll("[data-plane]").forEach(function (el) { el.style.opacity = "0"; });
+    }
+
+    const swirl = document.getElementById("an-swirl");
+    const world = document.getElementById("an-world");
+    const frames = Array.prototype.slice.call(root.querySelectorAll("[data-frame]"));
+    const tilts = Array.prototype.slice.call(root.querySelectorAll("[data-tilt]"));
+    const gallery = document.getElementById("an-gallery");
+    const paint = document.getElementById("an-paint");
+    const cursor = document.getElementById("an-cursor");
+    const elCount = document.getElementById("an-count");
+    const elNow = document.getElementById("an-now");
+    const elArtist = document.getElementById("an-artist");
+    const elBar = document.getElementById("an-bar");
+
+    let pmx = 0.5, pmy = 0.5, cx = -200, cy = -200, tcx = -200, tcy = -200, active = -1, big = false, seen = false;
+
+    const onMove = (e) => {
+      if (!seen) { seen = true; cx = e.clientX; cy = e.clientY; cursor.style.opacity = "1"; }
+      pmx = e.clientX / window.innerWidth;
+      pmy = e.clientY / window.innerHeight;
+      tcx = e.clientX; tcy = e.clientY;
+      const pr = paint.getBoundingClientRect();
+      if (pr.top < window.innerHeight && pr.bottom > 0) this.brush.point(e.clientX, e.clientY - Math.min(0, pr.top));
+      const over = !!(e.target.closest && e.target.closest("[data-frame], a"));
+      if (over !== big) {
+        big = over;
+        cursor.style.width = over ? "76px" : "34px";
+        cursor.style.height = over ? "76px" : "34px";
+        cursor.style.margin = over ? "-38px 0 0 -38px" : "-17px 0 0 -17px";
+        cursor.style.background = over ? "rgba(242,193,78,.14)" : "transparent";
+      }
+    };
+    const onDown = (e) => { this.brush.burst(e.clientX, e.clientY, 90); };
+    const onResize = () => { this.sky.resize(); this.brush.resize(); };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mousedown", onDown, { passive: true });
+    window.addEventListener("resize", onResize);
+    this.onKey = (e) => { if (e.key === "Escape") this.setState({ open: -1 }); };
+    window.addEventListener("keydown", this.onKey);
+
+    const vh = () => window.innerHeight;
+    const DEPTH = 11600;
+    let camZ = 0;
+
+    const loop = () => {
+      const gr = gallery.getBoundingClientRect();
+      const prog = Math.min(1, Math.max(0, -gr.top / (gallery.offsetHeight - vh())));
+      camZ += (prog * DEPTH - camZ) * 0.09;
+
+      const yaw = (pmx - 0.5) * 7, pitch = (pmy - 0.5) * -4;
+      world.style.transform = "translate3d(" + (pmx - 0.5) * -60 + "px," + (pmy - 0.5) * -34 + "px," + camZ + "px) rotateY(" + yaw + "deg) rotateX(" + pitch + "deg)";
+
+      let bestI = 0, bestD = 1e9;
+      for (let i = 0; i < frames.length; i++) {
+        const f = frames[i];
+        const z = parseFloat(f.dataset.z);
+        const side = f.dataset.side === "l" ? -1 : 1;
+        const d = -(z + camZ);
+        const near = Math.abs(d - 700);
+        if (near < bestD) { bestD = near; bestI = i; }
+        let op = 1;
+        if (d < 320) op = Math.max(0, (d - 60) / 260);
+        if (d > 4200) op = Math.max(0, 1 - (d - 4200) / 2600);
+        f.style.opacity = op.toFixed(3);
+        f.style.visibility = op <= 0.01 ? "hidden" : "visible";
+        f.style.transform = "translate3d(" + side * 560 + "px," + Math.sin(z * 0.0007) * 26 + "px," + z + "px) rotateY(" + side * -54 + "deg)";
+      }
+      if (active !== bestI) {
+        active = bestI;
+        const wk = WORKS[bestI];
+        elCount.textContent = String(bestI + 1).padStart(2, "0");
+        elNow.textContent = wk.t;
+        elArtist.textContent = wk.a;
+      }
+      elBar.style.height = (prog * 220).toFixed(1) + "px";
+
+      const sr = gallery.getBoundingClientRect();
+      const skyOut = Math.min(1, Math.max(0, -sr.top / (vh() * 0.7)));
+      swirl.style.opacity = (1 - skyOut * 0.88).toFixed(3);
+
+      for (let j = 0; j < tilts.length; j++) {
+        const r = tilts[j].getBoundingClientRect();
+        const c = (r.top + r.height / 2 - vh() / 2) / vh();
+        const k = Math.max(-1, Math.min(1, c));
+        tilts[j].style.transform = "rotateX(" + (k * -16).toFixed(2) + "deg) translateZ(" + (-Math.abs(k) * 90).toFixed(1) + "px)";
+        tilts[j].style.opacity = (1 - Math.abs(k) * 0.55).toFixed(3);
+      }
+
+      cx += (tcx - cx) * 0.18; cy += (tcy - cy) * 0.18;
+      cursor.style.transform = "translate3d(" + cx + "px," + cy + "px,0)";
+
+      this.raf = requestAnimationFrame(loop);
+    };
+    loop();
+
+    this.cleanup = () => {
+      cancelAnimationFrame(this.raf);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("keydown", this.onKey);
+      this.sky.stop(); this.brush.stop();
+    };
+  }
+
+  componentWillUnmount() { if (this.cleanup) this.cleanup(); }
+
+  renderVals() {
+    const i = this.state.open;
+    const w = i >= 0 ? WORKS[i] : null;
+    return {
+      isOpen: i >= 0,
+      openTitle: w ? w.t : "",
+      openArtist: w ? w.a : "",
+      openYear: w ? String(w.y) : "",
+      openMedium: w ? w.m : "",
+      openArt: w ? w.bg : "none",
+      openPalette: w ? w.p.map(function (c) { return { c: c }; }) : [],
+      openFrame: (e) => {
+        const el = e.currentTarget;
+        this.setState({ open: parseInt(el.dataset.index, 10) });
+      },
+      closeFrame: () => this.setState({ open: -1 })
+    };
+  }
+}
+</script>
+</body>
+</html>
