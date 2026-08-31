@@ -24,6 +24,23 @@ const FAR_GONE = 5200;
 // feels identical at 60Hz and 144Hz.
 const CAM_RATE = 5.7;
 
+// The hall is drawn for a wide viewport: frames hang ±560px off the centre
+// line, turned 54° to face down the corridor. On a phone that puts the
+// featured work completely off screen. These narrow the corridor, square the
+// frames up to the viewer, and bring the featured slot closer as the viewport
+// shrinks — at desktop widths `narrow` is 0 and the geometry is untouched.
+const WIDE_AT = 1100;
+const NARROW_AT = 390;
+
+function corridorShape(viewW) {
+  const narrow = Math.max(0, Math.min(1, (WIDE_AT - viewW) / (WIDE_AT - NARROW_AT)));
+  return {
+    spread: 560 - narrow * 350,
+    rotation: 54 - narrow * 20,
+    featured: FEATURED_DIST - narrow * 350,
+  };
+}
+
 // Fills `rects` with each tilt row's box and reports whether any of them is on
 // screen, so the chord tilt can be skipped entirely while that section is not
 // in view. The rects are needed either way, so this does the read once.
@@ -199,13 +216,14 @@ export function useSceneAnimation(refs, options) {
 
         if (grid && floorGrid) grid.draw(camZ, pmx, pmy);
 
+        const shape = corridorShape(window.innerWidth);
         let bestI = 0;
         let bestD = Infinity;
         for (let i = 0; i < frames.length; i++) {
           const { z, side } = WORKS[i];
           const dir = side === "l" ? -1 : 1;
           const d = -(z + camZ);
-          const near = Math.abs(d - FEATURED_DIST);
+          const near = Math.abs(d - shape.featured);
           if (near < bestD) {
             bestD = near;
             bestI = i;
@@ -219,8 +237,8 @@ export function useSceneAnimation(refs, options) {
           f.style.opacity = op.toFixed(3);
           f.style.visibility = op <= 0.005 ? "hidden" : "visible";
           f.style.transform =
-            `translate3d(${dir * 560}px,${Math.sin(z * 0.0007) * 26}px,${z}px) ` +
-            `rotateY(${dir * -54}deg)`;
+            `translate3d(${(dir * shape.spread).toFixed(1)}px,${Math.sin(z * 0.0007) * 26}px,${z}px) ` +
+            `rotateY(${(dir * -shape.rotation).toFixed(1)}deg)`;
         }
         if (active !== bestI) {
           active = bestI;

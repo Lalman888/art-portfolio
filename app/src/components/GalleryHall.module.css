@@ -179,3 +179,21 @@
   background: var(--gold);
   height: 0;
 }
+
+/* At phone width the HUD and the "click a project" hint collide on the same
+   line, and the hint is the less useful of the two. */
+@media (max-width: 760px) {
+  .hud {
+    left: 22px;
+    right: 22px;
+    bottom: 26px;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .progress {
+    right: 18px;
+  }
+}
