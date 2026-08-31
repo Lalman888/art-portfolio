@@ -141,6 +141,19 @@ export function createPainter(canvas, opts = {}) {
 
   return {
     resize,
+    // Suspends the simulation while the canvas is off screen. The rAF is
+    // cancelled outright rather than short-circuited, so a hidden canvas
+    // costs nothing at all.
+    setPaused(next) {
+      if (!cfg.animate || next === !alive) return;
+      if (next) {
+        alive = false;
+        cancelAnimationFrame(raf);
+      } else {
+        alive = true;
+        frame();
+      }
+    },
     point(x, y) {
       mx = x;
       my = y;

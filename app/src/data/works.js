@@ -66,9 +66,9 @@ export const WORKS = [
   },
 ];
 
-// Corridor depth the camera travels, in px. The last frame at z:-4200 is
-// fully behind the viewer around 4600, so this leaves a short breath at the
-// end of the hall without a long stretch of empty corridor. Kept beside the
-// data it paces — adding a work means extending this and the section height
-// in GalleryHall.module.css together.
-export const GALLERY_DEPTH = 5200;
+// Corridor depth the camera travels, in px. The last frame finishes
+// dissolving around 3820 (z:-4200 minus the NEAR_GONE threshold), so this
+// leaves a short breath at the end of the hall rather than a long stretch of
+// empty corridor. Kept beside the data it paces — adding a work means
+// extending this and the section height in GalleryHall.module.css together.
+export const GALLERY_DEPTH = 4600;

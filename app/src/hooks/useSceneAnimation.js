@@ -1,8 +1,58 @@
 import { useEffect } from "react";
 import { createPainter } from "../lib/painter";
+import { createCorridorGrid } from "../lib/corridorGrid";
 import { WORKS, GALLERY_DEPTH } from "../data/works";
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+// --- Corridor tuning -------------------------------------------------------
+// Distance in front of the camera at which a work is "featured" (named in the
+// HUD). Sits comfortably inside the fully-opaque band so the readout never
+// names a card that is busy dissolving.
+const FEATURED_DIST = 1300;
+// A card holds full opacity until NEAR_FULL, then dissolves to nothing by
+// NEAR_GONE — well before it reaches the camera plane, so it fades out
+// instead of snapping off. The original 320→60 window was ~5% of the scroll
+// and read as cards vanishing at random.
+const NEAR_GONE = 380;
+const NEAR_FULL = 900;
+// Depth fog: the furthest card sits partly veiled and resolves as you
+// approach, which keeps more than one work on screen at a time.
+const FAR_FULL = 3000;
+const FAR_GONE = 5200;
+// Camera response, as a rate rather than a per-frame fraction, so the easing
+// feels identical at 60Hz and 144Hz.
+const CAM_RATE = 5.7;
+
+// The hall is drawn for a wide viewport: frames hang ±560px off the centre
+// line, turned 54° to face down the corridor. On a phone that puts the
+// featured work completely off screen. These narrow the corridor, square the
+// frames up to the viewer, and bring the featured slot closer as the viewport
+// shrinks — at desktop widths `narrow` is 0 and the geometry is untouched.
+const WIDE_AT = 1100;
+const NARROW_AT = 390;
+
+function corridorShape(viewW) {
+  const narrow = Math.max(0, Math.min(1, (WIDE_AT - viewW) / (WIDE_AT - NARROW_AT)));
+  return {
+    spread: 560 - narrow * 350,
+    rotation: 54 - narrow * 20,
+    featured: FEATURED_DIST - narrow * 350,
+  };
+}
+
+// Fills `rects` with each tilt row's box and reports whether any of them is on
+// screen, so the chord tilt can be skipped entirely while that section is not
+// in view. The rects are needed either way, so this does the read once.
+function tiltsOnScreen(tilts, rects, viewH) {
+  let visible = false;
+  for (let j = 0; j < tilts.length; j++) {
+    const r = tilts[j].getBoundingClientRect();
+    rects[j] = r;
+    if (r.top < viewH && r.bottom > 0) visible = true;
+  }
+  return visible;
+}
 
 /**
  * Drives every piece of scroll/pointer-reactive motion on the page from a
@@ -18,7 +68,7 @@ const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
  * hall and drives real text content.
  *
  * The animated elements are found by querying `[data-frame]`, `[data-tilt]`
- * and `[data-plane]` inside the root, which keeps the components free of
+ * and `[data-grid]` inside the root, which keeps the components free of
  * ref-array plumbing. Frames are assumed to be in WORKS order — they are
  * rendered from that same array.
  *
@@ -57,9 +107,9 @@ export function useSceneAnimation(refs, options) {
       animate: !reduced,
     });
 
-    root.querySelectorAll("[data-plane]").forEach((el) => {
-      el.style.opacity = floorGrid ? "" : "0";
-    });
+    const gridCanvas = root.querySelector("[data-grid]");
+    const grid = gridCanvas ? createCorridorGrid(gridCanvas) : null;
+    if (gridCanvas) gridCanvas.style.opacity = floorGrid ? "" : "0";
 
     const frames = Array.from(root.querySelectorAll("[data-frame]"));
     const tilts = Array.from(root.querySelectorAll("[data-tilt]"));
@@ -118,6 +168,7 @@ export function useSceneAnimation(refs, options) {
     const onResize = () => {
       sky.resize();
       brush.resize();
+      grid?.resize();
     };
 
     window.addEventListener("pointermove", onPointerMove, { passive: true });
@@ -127,9 +178,15 @@ export function useSceneAnimation(refs, options) {
     const vh = () => window.innerHeight;
     let camZ = 0;
     let raf = 0;
+    let last = performance.now();
 
     const loop = () => {
       const viewH = vh();
+      const now = performance.now();
+      // Clamped so a backgrounded tab returning after seconds does not jump
+      // the camera the length of the hall in one step.
+      const dt = Math.min(0.1, (now - last) / 1000);
+      last = now;
 
       // --- reads: every layout query happens up front, so the writes below
       // cannot force a reflow between them ---
@@ -137,57 +194,77 @@ export function useSceneAnimation(refs, options) {
       const galleryHeight = gallery.offsetHeight;
       brushRect = brushCanvas.getBoundingClientRect();
       brushVisible = brushRect.top < viewH && brushRect.bottom > 0;
-      for (let j = 0; j < tilts.length; j++) tiltRects[j] = tilts[j].getBoundingClientRect();
+      const galleryVisible = galleryRect.top < viewH && galleryRect.bottom > 0;
+      const tiltsVisible = tiltsOnScreen(tilts, tiltRects, viewH);
 
       // --- writes ---
       const prog = Math.min(1, Math.max(0, -galleryRect.top / (galleryHeight - viewH)));
-      camZ += (prog * GALLERY_DEPTH - camZ) * 0.09;
 
-      const yaw = (pmx - 0.5) * 7;
-      const pitch = (pmy - 0.5) * -4;
-      world.style.transform =
-        `translate3d(${(pmx - 0.5) * -60}px,${(pmy - 0.5) * -34}px,${camZ}px) ` +
-        `rotateY(${yaw}deg) rotateX(${pitch}deg)`;
+      // Exponential ease expressed as a rate, so the response is identical on
+      // a 60Hz and a 144Hz display, plus a snap so the camera actually
+      // settles instead of creeping toward the target forever.
+      const target = prog * GALLERY_DEPTH;
+      camZ += (target - camZ) * (1 - Math.exp(-CAM_RATE * dt));
+      if (Math.abs(target - camZ) < 0.5) camZ = target;
 
-      let bestI = 0;
-      let bestD = Infinity;
-      for (let i = 0; i < frames.length; i++) {
-        const { z, side } = WORKS[i];
-        const dir = side === "l" ? -1 : 1;
-        const d = -(z + camZ);
-        const near = Math.abs(d - 700);
-        if (near < bestD) {
-          bestD = near;
-          bestI = i;
+      if (galleryVisible) {
+        const yaw = (pmx - 0.5) * 7;
+        const pitch = (pmy - 0.5) * -4;
+        world.style.transform =
+          `translate3d(${(pmx - 0.5) * -60}px,${(pmy - 0.5) * -34}px,${camZ}px) ` +
+          `rotateY(${yaw}deg) rotateX(${pitch}deg)`;
+
+        if (grid && floorGrid) grid.draw(camZ, pmx, pmy);
+
+        const shape = corridorShape(window.innerWidth);
+        let bestI = 0;
+        let bestD = Infinity;
+        for (let i = 0; i < frames.length; i++) {
+          const { z, side } = WORKS[i];
+          const dir = side === "l" ? -1 : 1;
+          const d = -(z + camZ);
+          const near = Math.abs(d - shape.featured);
+          if (near < bestD) {
+            bestD = near;
+            bestI = i;
+          }
+          let op = 1;
+          if (d < NEAR_FULL) op = (d - NEAR_GONE) / (NEAR_FULL - NEAR_GONE);
+          else if (d > FAR_FULL) op = 1 - (d - FAR_FULL) / (FAR_GONE - FAR_FULL);
+          op = Math.max(0, Math.min(1, op));
+
+          const f = frames[i];
+          f.style.opacity = op.toFixed(3);
+          f.style.visibility = op <= 0.005 ? "hidden" : "visible";
+          f.style.transform =
+            `translate3d(${(dir * shape.spread).toFixed(1)}px,${Math.sin(z * 0.0007) * 26}px,${z}px) ` +
+            `rotateY(${(dir * -shape.rotation).toFixed(1)}deg)`;
         }
-        let op = 1;
-        if (d < 320) op = Math.max(0, (d - 60) / 260);
-        if (d > 4200) op = Math.max(0, 1 - (d - 4200) / 2600);
+        if (active !== bestI) {
+          active = bestI;
+          onActiveChange(bestI);
+        }
 
-        const f = frames[i];
-        f.style.opacity = op.toFixed(3);
-        f.style.visibility = op <= 0.01 ? "hidden" : "visible";
-        f.style.transform =
-          `translate3d(${dir * 560}px,${Math.sin(z * 0.0007) * 26}px,${z}px) ` +
-          `rotateY(${dir * -54}deg)`;
+        progress.style.height = (prog * 220).toFixed(1) + "px";
       }
-      if (active !== bestI) {
-        active = bestI;
-        onActiveChange(bestI);
-      }
-
-      progress.style.height = (prog * 220).toFixed(1) + "px";
 
       const skyOut = Math.min(1, Math.max(0, -galleryRect.top / (viewH * 0.7)));
       swirl.style.opacity = (1 - skyOut * 0.88).toFixed(3);
 
-      for (let j = 0; j < tilts.length; j++) {
-        const r = tiltRects[j];
-        const c = (r.top + r.height / 2 - viewH / 2) / viewH;
-        const k = Math.max(-1, Math.min(1, c));
-        tilts[j].style.transform = `rotateX(${(k * -16).toFixed(2)}deg) translateZ(${(-Math.abs(k) * 90).toFixed(1)}px)`;
-        tilts[j].style.opacity = (1 - Math.abs(k) * 0.55).toFixed(3);
+      if (tiltsVisible) {
+        for (let j = 0; j < tilts.length; j++) {
+          const r = tiltRects[j];
+          const c = (r.top + r.height / 2 - viewH / 2) / viewH;
+          const k = Math.max(-1, Math.min(1, c));
+          tilts[j].style.transform = `rotateX(${(k * -16).toFixed(2)}deg) translateZ(${(-Math.abs(k) * 90).toFixed(1)}px)`;
+          tilts[j].style.opacity = (1 - Math.abs(k) * 0.55).toFixed(3);
+        }
       }
+
+      // The impasto field only needs to simulate while it is on screen;
+      // otherwise it burns a full-viewport canvas of strokes behind whatever
+      // section you are actually looking at.
+      brush.setPaused(!brushVisible);
 
       cx += (tcx - cx) * 0.18;
       cy += (tcy - cy) * 0.18;
