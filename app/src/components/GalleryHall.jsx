@@ -34,9 +34,11 @@ export default function GalleryHall({ galleryRef, worldRef, progressRef, activeI
     // so this stays invisible.
     <section id="work" ref={galleryRef} tabIndex={-1} className={styles.section} aria-label="Selected work">
       <div className={styles.stage}>
+        {/* The corridor grid, drawn in 2D with the same projection the 3D
+            world uses. It sits behind the frames rather than among them,
+            which is all the depth ordering this scene needs. */}
+        <canvas data-grid className={styles.grid} aria-hidden="true" />
         <div ref={worldRef} className={styles.world}>
-          <div data-plane className={`${styles.plane} ${styles.planeFloor}`} />
-          <div data-plane className={`${styles.plane} ${styles.planeCeiling}`} />
 
           {WORKS.map((work, i) => (
             <Frame key={work.title} work={work} index={i} onOpen={onOpenFrame} />

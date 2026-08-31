@@ -1,9 +1,9 @@
-/* Paced against GALLERY_DEPTH in data/works.js — three frames over 5200px
+/* Paced against GALLERY_DEPTH in data/works.js — three frames over 4600px
    of corridor. Change one and change the other. */
 .section {
   position: relative;
   z-index: 5;
-  height: 280vh;
+  height: 260vh;
 }
 
 .stage {
@@ -22,28 +22,16 @@
   will-change: transform;
 }
 
-.plane {
+/* The floor and ceiling grid. This was two DOM planes of 2600x14000px each —
+   36 megapixels per layer for the compositor to perspective-map every frame,
+   which measured as ~90% of this section's cost. It is now one
+   viewport-sized canvas drawing ~55 lines; see lib/corridorGrid.js. */
+.grid {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 2600px;
-  height: 14000px;
-  margin: -7000px 0 0 -1300px;
-}
-
-.planeFloor {
-  transform: translateY(430px) rotateX(90deg);
-  background:
-    repeating-linear-gradient(to bottom, rgba(111, 157, 214, 0.16) 0 1px, rgba(0, 0, 0, 0) 1px 140px),
-    repeating-linear-gradient(to right, rgba(111, 157, 214, 0.09) 0 1px, rgba(0, 0, 0, 0) 1px 200px),
-    linear-gradient(to bottom, #060b18, #0a1230);
-}
-
-.planeCeiling {
-  transform: translateY(-450px) rotateX(90deg);
-  background:
-    repeating-linear-gradient(to bottom, rgba(242, 193, 78, 0.07) 0 1px, rgba(0, 0, 0, 0) 1px 300px),
-    linear-gradient(to bottom, #05080f, #0b1533);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .frame {
